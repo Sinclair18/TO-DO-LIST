@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TO D0 LIST</title>
+    <link rel="stylesheet" href="to-do-list.css" />
+</head>
+
+<body>
+    <div id="main-container">
+        <div id="header-div">
+            <h1 class="heading">TASKS-LIST</h1>
+            <h2 class="time"></h2>
+        </div>
+
+        <span id="input-span">
+            <input type="text" class="task-input" placeholder="Enter a new task" />
+            <button class="add-btn" onclick="addTask()">+ Add</button>
+        </span>
+
+        <ul id="list-container"></ul>
+        <button class="clear-btn" onclick="clearAll()">Clear</button>
+    </div>
+
+    <!-- <div style="height: 700px; width: 350px; border: 1px solid red; border-radius: 10px;">
+
+    </div> -->
+
+    <script>
+        let mainContainer = document.getElementById("main-container");
+        const taskInput = document.getElementById("input-span").firstElementChild;
+
+        let checkBox = document.getElementsByClassName("check-box");
+
+        let addBtn = document.getElementsByClassName("add-btn");
+
+        let listContainer = document.getElementById("list-container");
+
+        let listLengthNodes = listContainer.querySelectorAll("li");
+
+        let listLength = listLengthNodes.length;
+
+        let timeContainer = document.querySelector('.time');
+        let headerDiv = document.getElementById('header-div');
+        let date = new Date();
+
+        timeContainer.textContent = `${date.getHours()}
+         : ${date.getMinutes()} : ${date.getSeconds()}`;
+        headerDiv.appendChild(timeContainer);
+
+        function addTask() {
+            if (taskInput.value == "") {
+                alert("Please enter a task");
+            } else {
+                let newTaskDiv = document.createElement("div");
+
+                let newTask = document.createElement("li");
+                let taskRemove = document.createElement("button");
+
+                newTaskDiv.setAttribute("class", "task-list");
+                newTask.setAttribute("class", "new-task");
+
+                taskRemove.setAttribute("class", "remove-task");
+                taskRemove.textContent = "X";
+
+                taskRemove.addEventListener("click", () => {
+                    let parEl = taskRemove.parentElement;
+                    alert('Remove this task?');
+                    parEl.innerHTML = "";
+                });
+
+                newTaskDiv.appendChild(newTask);
+                newTaskDiv.appendChild(taskRemove);
+
+                newTask.innerText = `${taskInput.value.trim()}`;
+
+                listContainer.appendChild(newTaskDiv);
+                taskInput.value = "";
+            }
+        }
+
+        function clearAll() {
+            listContainer.children.length === 0 ? alert('There is nothing to clear!')
+                : alert('All tasks left will be cleared!');
+
+            listContainer.innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>
