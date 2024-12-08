@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TO D0 LIST</title>
+    <link rel="stylesheet" href="to-do-list.css" />
+</head>
+
+<body>
+    <button id="theme-btn">Dark</button>
+    <div id="main-container">
+        <div id="header-div">
+            <h1 class="heading">TASKS-LIST</h1>
+            <h2 class="time"></h2>
+        </div>
+
+        <span id="input-span">
+            <input type="text" class="task-input" placeholder="Enter a new task" />
+            <button class="add-btn" onclick="addTask()">+ Add</button>
+        </span>
+
+        <ul id="list-container"></ul>
+        <button class="clear-btn" onclick="clearAll()">Clear</button>
+    </div>
+
+    <!-- <div style="height: 700px; width: 350px; border: 1px solid red; border-radius: 10px;">
+
+    </div> -->
+
+    <script>
+        let mainContainer = document.getElementById("main-container");
+        const taskInput = document.getElementById("input-span").firstElementChild;
+
+        let addBtn = document.getElementsByClassName("add-btn");
+
+        let listContainer = document.getElementById("list-container");
+
+        let timeContainer = document.querySelector('.time');
+        let headerDiv = document.getElementById('header-div');
+        let date = new Date();
+
+        timeContainer.textContent = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        headerDiv.appendChild(timeContainer);
+
+        let header = document.querySelector('.heading');
+        let body = document.querySelector('body');
+        let themeBtn = document.getElementById('theme-btn');
+
+        themeBtn.addEventListener('click', () => {
+            if (mainContainer.style.backgroundColor == 'white') {
+                mainContainer.style.backgroundColor = 'black';
+                header.style.color = 'white';
+                timeContainer.style.color = 'white';
+            } else {
+                mainContainer.style.backgroundColor = 'white';
+                header.style.color = 'black';
+                timeContainer.style.color = 'black';
+            }
+        })
+
+        function addTask() {
+            if (taskInput.value == "") {
+                alert("Please enter a task");
+            } else {
+                let newTaskDiv = document.createElement("div");
+
+                let newTask = document.createElement("li");
+                let taskRemove = document.createElement("button");
+
+                newTaskDiv.setAttribute("class", "task-list");
+                newTask.setAttribute("class", "new-task");
+
+                taskRemove.setAttribute("class", "remove-task");
+                taskRemove.textContent = "X";
+
+                newTaskDiv.appendChild(newTask);
+                newTaskDiv.appendChild(taskRemove);
+
+                newTask.innerText = `${taskInput.value}`;
+
+                listContainer.appendChild(newTaskDiv);
+                taskInput.value = "";
+
+                taskRemove.addEventListener("click", () => {
+                    let parEl = taskRemove.parentElement;
+                    alert('Remove this task?');
+                    parEl.innerHTML = '';
+                });
+
+
+            }
+        }
+
+        function clearAll() {
+            listContainer.children.length === 0 ? alert('There is nothing to clear!')
+                : alert('All tasks left will be cleared!');
+
+            listContainer.innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>
